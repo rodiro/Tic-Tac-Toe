@@ -80,22 +80,15 @@ def full_board_check(board):
 def player_choice(board):
     global turn
 
-    # if turn == "Player 1":
-    #     next_pos = int(input("\nPlayer 1, please choose your position (numpad 1-9) then press enter: "))
-    #
-    # elif turn == "Player 2":
-    #     next_pos = int(input("\nPlayer 2, please choose your position (numpad 1-9) then press enter: "))
-    #
-    # while not space_check(board, next_pos):
-    #     next_pos = int(input(f"Position {next_pos} is already taken, Please choose another position (1-9): "))
-    #
-    # else:
-    #     return next_pos
     next_pos = 0
 
     while next_pos not in range(1, 10) or not space_check(board, next_pos):
-        next_pos = int(input(f"\n{turn} please choose your position (numpad 1-9) then press enter: "))
-
+        try:
+            next_pos = int(input(f"\n{turn} please choose your position (numpad 1-9) then press enter: "))
+        except:
+            print("That's not a number!")
+        else:
+            break
     return next_pos
 
 
@@ -118,6 +111,8 @@ turn = "Player 1" if first == True else "Player 2"
 
 
 def tic_tac_toe():
+    global turn
+
     print('\nWelcome to Tic Tac Toe!')
     # Initializes board
     test_board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
@@ -128,10 +123,7 @@ def tic_tac_toe():
     # Prints out which marker goes to which player.
     print(mark)
 
-    global turn
-    
     while True:
-
         if turn == "Player 1":
             display_board(test_board)
             pos = player_choice(test_board)
@@ -158,7 +150,7 @@ def tic_tac_toe():
                 print("\n" * 20)
                 tic_tac_toe()
             else:
-                break
+                exit()
 
         if full_board_check(test_board):
             display_board(test_board)
@@ -167,7 +159,7 @@ def tic_tac_toe():
                 print("\n" * 20)
                 tic_tac_toe()
             else:
-                break
+                exit()
 
 
 tic_tac_toe()
